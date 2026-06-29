@@ -131,7 +131,7 @@ export default function LiveSection() {
             ) : (
               messages.map((m, i) => (
                 <div key={`${m.t}-${i}`} className="border border-[var(--line)] bg-[var(--panel-2)] p-2.5">
-                  <div className="flex items-baseline gap-2 text-[12px]">
+                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[12px]">
                     <span className="font-medium text-accent">{m.name}</span>
                     {m.city && (
                       <span className="flex items-center gap-1 text-[10px] text-zinc-500">

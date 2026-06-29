@@ -123,7 +123,7 @@ export default function GitHubActivity() {
                   rel="noreferrer"
                   className="group block border border-[var(--line)] bg-[var(--panel-2)] p-3 transition-colors hover:border-zinc-600"
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                     <span className="text-[13px] font-medium text-zinc-200 group-hover:text-accent">{r.name}</span>
                     {r.lang && (
                       <span className="flex items-center gap-1 text-[10px] text-zinc-500">
