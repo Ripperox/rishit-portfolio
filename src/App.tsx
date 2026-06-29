@@ -8,13 +8,16 @@ import CommandMenu from './components/CommandMenu'
 import Hero from './components/Hero'
 import Alpharooms from './components/Alpharooms'
 import ThroughputLab from './components/ThroughputLab'
+import SkillsMatrix from './components/SkillsMatrix'
+import Experience from './components/Experience'
+import LiveSection from './components/LiveSection'
+import GitHubActivity from './components/GitHubActivity'
+
+import Contact from './components/Contact'
+import Footer from './components/Footer'
 
 // Code-split the GSAP-powered pinned showcase (~30kb gz) out of the initial bundle.
 const ScrollShowcase = lazy(() => import('./components/ScrollShowcase'))
-import SkillsMatrix from './components/SkillsMatrix'
-import Experience from './components/Experience'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
 
 export default function App() {
   useEffect(() => {
@@ -54,6 +57,8 @@ export default function App() {
             <ThroughputLab />
             <SkillsMatrix />
             <Experience />
+            <LiveSection />
+            <GitHubActivity />
             <Contact />
           </main>
 

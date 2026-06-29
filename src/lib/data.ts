@@ -5,8 +5,8 @@
 export const PROFILE = {
   name: 'Rishit Dhote',
   handle: 'rishit',
-  role: 'Systems & Realtime Engineer',
-  tagline: 'I build high-concurrency Rust backends and slick realtime trading interfaces.',
+  role: 'Backend & Distributed Systems Engineer',
+  tagline: 'I build high-concurrency backends and realtime systems that stay fast under load.',
   email: 'rishitrdhote@gmail.com',
   phone: '7021796024',
   github: 'Ripperox',
@@ -15,6 +15,55 @@ export const PROFILE = {
   linkedinUrl: 'https://www.linkedin.com/in/rishit-dhote',
   location: 'Remote · India',
 }
+
+export interface Project {
+  name: string
+  tag: string
+  blurb: string
+  stack: string[]
+  repo?: string | null
+  live?: string | null
+  demo?: boolean
+}
+
+export const PROJECTS: Project[] = [
+  {
+    name: 'Alpharooms',
+    tag: 'realtime',
+    blurb: 'Realtime platform — Rust WebSocket fanout sustaining 1000+ concurrent users/replica, SQLx + shared Redis pub/sub. 30+ event types over one socket.',
+    stack: ['Rust', 'Tokio', 'WebSockets', 'Redis', 'Postgres'],
+    live: '#alpharooms',
+    demo: true,
+  },
+  {
+    name: 'LLM Gateway',
+    tag: 'systems',
+    blurb: 'Transparent streaming proxy that relays SSE byte-for-byte while instrumenting every token — TTFT, latency, throughput — live to a React dashboard over WebSockets.',
+    stack: ['Rust', 'Axum', 'React'],
+    repo: 'https://github.com/Ripperox/llm-gateway',
+  },
+  {
+    name: 'cc-meter',
+    tag: 'devtools',
+    blurb: 'Cross-session usage observability for Claude Code — live status line + trends report. A shipped, starred tool people actually use.',
+    stack: ['Python'],
+    repo: 'https://github.com/Ripperox/cc-meter',
+  },
+  {
+    name: 'FlavourScout',
+    tag: 'algorithms',
+    blurb: 'Provably-optimal cart & coupon optimizer — multiple-choice knapsack DP priced against the real checkout bill, 500-test suite, live demo.',
+    stack: ['Python', 'FastAPI'],
+    repo: 'https://github.com/Ripperox/flavourscout',
+  },
+  {
+    name: 'Solana Tx Monitor',
+    tag: 'realtime',
+    blurb: 'Realtime on-chain dashboard — WebSocket → SSE fanout, virtualized 1000-transaction feed, automatic reconnect.',
+    stack: ['Next.js', 'TypeScript'],
+    repo: 'https://github.com/Ripperox/Solana_Websocket',
+  },
+]
 
 export interface SkillNode {
   name: string

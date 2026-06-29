@@ -6,22 +6,23 @@ import { PROFILE } from '../lib/data'
 
 const NAV = [
   { id: 'alpharooms', label: 'Alpharooms' },
-  { id: 'lab', label: 'Throughput Lab' },
-  { id: 'skills', label: 'Stack' },
-  { id: 'work', label: 'Work' },
+  { id: 'lab', label: 'Lab' },
+  { id: 'skills', label: 'Work' },
+  { id: 'live', label: 'Live' },
+  { id: 'github', label: 'GitHub' },
   { id: 'contact', label: 'Contact' },
 ]
 
 const TICKER = [
-  'SOL ◎ 142.30 ▲2.4%',
+  'Rust · Tokio · Axum',
   'p99 12ms',
-  'WS conns 1,024',
-  'TRX 0.118 ▲0.9%',
-  'fanout <1s',
-  'uptime 99.98%',
-  'BTC 64,210 ▼0.3%',
-  'replicas 4/4 healthy',
-  'throughput 38k msg/s',
+  '1000+ concurrent / replica',
+  'WS fanout < 1s',
+  '99% delivery @ 1k req/s',
+  'React · TypeScript · Next.js',
+  'Postgres · Redis · SQLx',
+  'K6 · Playwright · Grafana',
+  'edge · serverless · Vercel',
 ]
 
 export default function StatusBar() {

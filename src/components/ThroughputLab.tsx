@@ -136,7 +136,8 @@ export default function ThroughputLab() {
       <SectionHeader index="02" command="bench --node --rust" title="Throughput Lab">
         Same workload, two runtimes. Drag the offered load and flip between an <span className="text-zinc-200">I/O-bound</span>{' '}
         and a <span className="text-zinc-200">CPU-bound</span> job — then watch Node's single thread fall off a cliff while
-        Rust's Tokio runtime fans the work across every core. This is the exact tradeoff behind the Alpharooms backend.
+        Rust's Tokio runtime fans the work across every core.{' '}
+        <span className="text-zinc-500">(An interactive model — a queueing simulation tuned to real-world numbers, not a live benchmark.)</span>
       </SectionHeader>
 
       {/* CONTROL DECK */}

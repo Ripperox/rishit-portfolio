@@ -51,10 +51,11 @@ export default function Alpharooms() {
 
   return (
     <Reveal as="section" id="alpharooms" className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-      <SectionHeader index="01" command="alpharooms --live" title="Alpharooms">
-        A realtime SocialFi platform — live video (AWS IVS), WebRTC voice, chat, polls, moderation and a
-        trading terminal, all multiplexed over a single per-room WebSocket. Below is a{' '}
-        <span className="text-zinc-200">working interactive preview</span>.
+      <SectionHeader index="01" command="alpharooms --demo" title="Alpharooms">
+        A realtime platform I built at Apeing — live video, WebRTC voice, chat, polls and a trading terminal,
+        all multiplexed over a single per-room WebSocket, with Rust/Tokio fanout sustaining{' '}
+        <span className="text-zinc-200">1000+ concurrent users per replica</span>. Below is an{' '}
+        <span className="text-zinc-200">interactive demo</span> — simulated data; the production app is private.
       </SectionHeader>
 
       {/* APP WINDOW */}

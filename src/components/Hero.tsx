@@ -108,9 +108,9 @@ export default function Hero() {
           </h1>
 
           <m.p {...fade(0.5)} className="mt-5 max-w-md text-[14px] leading-relaxed text-zinc-400">
-            I build <span className="text-zinc-200">high-concurrency Rust backends</span> and{' '}
-            <span className="text-zinc-200">slick realtime trading interfaces</span> — from sub-second price
-            fanout to streaming SocialFi rooms with 1000+ live users.
+            I build <span className="text-zinc-200">high-concurrency backends</span> and{' '}
+            <span className="text-zinc-200">realtime interfaces</span> — distributed systems that stay fast
+            under load, from streaming data pipelines to apps with 1000+ live users.
           </m.p>
 
           <m.div {...fade(0.6)} className="mt-7 flex flex-wrap items-center gap-3">
