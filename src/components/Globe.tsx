@@ -3,6 +3,8 @@ import createGlobe from 'cobe'
 
 export type Marker = { location: [number, number]; size: number }
 
+/* cobe v2: no onRender callback — you drive the spin yourself with a rAF loop
+   that calls globe.update({ phi }). */
 export default function Globe({
   markers,
   markerColor = [0, 1, 0.62],
@@ -18,16 +20,11 @@ export default function Globe({
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-    let width = 0
-    const onResize = () => {
-      width = canvas.offsetWidth
-    }
-    window.addEventListener('resize', onResize)
-    onResize()
+    let raf = 0
+    let width = canvas.offsetWidth || 360
 
-    let phi = phiRef.current
     const globe = createGlobe(canvas, {
-      devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+      devicePixelRatio: 2,
       width: width * 2,
       height: width * 2,
       phi: 0,
@@ -40,14 +37,22 @@ export default function Globe({
       markerColor,
       glowColor: [0.12, 0.42, 0.34],
       markers,
-      onRender: (state) => {
-        if (interacting.current === null) phi += 0.0035
-        state.phi = phi + movement.current * 0.01
-        state.width = width * 2
-        state.height = width * 2
-        phiRef.current = phi
-      },
     })
+
+    let phi = phiRef.current
+    const render = () => {
+      if (interacting.current === null) phi += 0.0035
+      globe.update({ phi: phi + movement.current * 0.01 })
+      phiRef.current = phi
+      raf = requestAnimationFrame(render)
+    }
+    raf = requestAnimationFrame(render)
+
+    const onResize = () => {
+      width = canvas.offsetWidth || width
+      globe.update({ width: width * 2, height: width * 2 })
+    }
+    window.addEventListener('resize', onResize)
 
     const fade = setTimeout(() => {
       canvas.style.opacity = '1'
@@ -55,8 +60,9 @@ export default function Globe({
 
     return () => {
       clearTimeout(fade)
-      globe.destroy()
+      cancelAnimationFrame(raf)
       window.removeEventListener('resize', onResize)
+      globe.destroy()
     }
     // recreate when markers / color change
   }, [JSON.stringify(markers), markerColor.join(',')])
