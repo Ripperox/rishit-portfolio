@@ -25,7 +25,7 @@ export default function ScrollShowcase() {
           trigger: '.pin-panel',
           pin: '.pin-panel',
           start: 'top top',
-          end: '+=1300',
+          end: () => '+=' + (window.innerWidth < 768 ? 700 : 1300),
           scrub: 0.6,
         },
       })

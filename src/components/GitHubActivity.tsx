@@ -49,7 +49,7 @@ export default function GitHubActivity() {
   ]
 
   return (
-    <Reveal as="section" id="github" className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <Reveal as="section" id="github" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
       <SectionHeader index="06" command="gh api /users/rishit" title="Build Log">
         Pulled <span className="text-zinc-200">live</span> from GitHub — real repos, stars, and recent pushes.
         Proof I actually ship, not just claim it.

@@ -15,7 +15,7 @@ export default function SkillsMatrix() {
   const [active, setActive] = useState<SkillNode | null>(null)
 
   return (
-    <Reveal as="section" id="skills" className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <Reveal as="section" id="skills" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
       <SectionHeader index="03" command="cat stack.json && ls ~/work" title="Stack & Selected Work">
         Full-path depth — type-safe Rust services, realtime systems, and full-stack TypeScript. Hover any node
         for detail; the work on the right is real and shippable.

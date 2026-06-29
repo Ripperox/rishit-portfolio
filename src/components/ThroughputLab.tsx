@@ -132,7 +132,7 @@ export default function ThroughputLab() {
   const rust = live.rust
 
   return (
-    <Reveal as="section" id="lab" className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <Reveal as="section" id="lab" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
       <SectionHeader index="02" command="bench --node --rust" title="Throughput Lab">
         Same workload, two runtimes. Drag the offered load and flip between an <span className="text-zinc-200">I/O-bound</span>{' '}
         and a <span className="text-zinc-200">CPU-bound</span> job — then watch Node's single thread fall off a cliff while

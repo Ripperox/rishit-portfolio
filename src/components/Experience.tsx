@@ -12,7 +12,7 @@ const TAG_COLOR: Record<string, string> = {
 
 export default function Experience() {
   return (
-    <Reveal as="section" id="work" className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <Reveal as="section" id="work" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
       <SectionHeader index="04" command="git log --career --oneline" title="Career Log">
         Four roles across realtime systems, blockchain infra, and large-scale data — most recent first.
       </SectionHeader>

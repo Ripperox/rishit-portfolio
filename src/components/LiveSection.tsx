@@ -75,7 +75,7 @@ export default function LiveSection() {
   }
 
   return (
-    <Reveal as="section" id="live" className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <Reveal as="section" id="live" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
       <SectionHeader index="05" command="ping --global && cat guestbook" title="Live Signal">
         This part is <span className="text-zinc-200">real</span>. The globe pings every visitor's approximate
         location (city-level, no IPs stored), the counter is a real cross-visitor count, and the wall below is a

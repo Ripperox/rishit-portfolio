@@ -33,12 +33,12 @@ export default function Globe({
       phi: 0,
       theta: 0.28,
       dark: 1,
-      diffuse: 1.1,
+      diffuse: 1.3,
       mapSamples: 16000,
-      mapBrightness: 5.4,
-      baseColor: [0.13, 0.14, 0.15],
+      mapBrightness: 7.5,
+      baseColor: [0.24, 0.27, 0.32],
       markerColor,
-      glowColor: [0.05, 0.2, 0.16],
+      glowColor: [0.12, 0.42, 0.34],
       markers,
       onRender: (state) => {
         if (interacting.current === null) phi += 0.0035
@@ -63,9 +63,17 @@ export default function Globe({
 
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[440px]">
+      {/* glow halo behind the globe (shows through the transparent corners) */}
+      <div
+        className="pointer-events-none absolute inset-[8%] rounded-full"
+        style={{
+          background: 'radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent), transparent 68%)',
+          filter: 'blur(22px)',
+        }}
+      />
       <canvas
         ref={canvasRef}
-        className="h-full w-full opacity-0 transition-opacity duration-700"
+        className="relative h-full w-full opacity-0 transition-opacity duration-700"
         style={{ contain: 'layout paint size', cursor: 'grab' }}
         onPointerDown={(e) => {
           interacting.current = e.clientX - movement.current

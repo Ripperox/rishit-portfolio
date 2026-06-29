@@ -50,7 +50,7 @@ export default function Alpharooms() {
   }, [])
 
   return (
-    <Reveal as="section" id="alpharooms" className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <Reveal as="section" id="alpharooms" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
       <SectionHeader index="01" command="alpharooms --demo" title="Alpharooms">
         A realtime platform I built at Apeing — live video, WebRTC voice, chat, polls and a trading terminal,
         all multiplexed over a single per-room WebSocket, with Rust/Tokio fanout sustaining{' '}

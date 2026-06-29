@@ -75,7 +75,7 @@ export default function Contact() {
     }`
 
   return (
-    <Reveal as="section" id="contact" className="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+    <Reveal as="section" id="contact" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
       <SectionHeader index="07" command="./contact.sh --secure" title="Open a Channel">
         Drop a message — it's submitted like a signed commit. I read everything; expect a reply within a day.
       </SectionHeader>
