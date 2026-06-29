@@ -2,7 +2,7 @@
 
 A single-page, highly interactive portfolio built as an immersive **tech-noir crypto trading terminal** — not a resume. Mirrors the design system of the Apeing trading frontend.
 
-**Live:** _deploying…_
+**Live:** [rishit-portfolio-xi.vercel.app](https://rishit-portfolio-xi.vercel.app)
 
 ## Highlights
 
