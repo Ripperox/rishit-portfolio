@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import {
   Radio,
   Users,
@@ -15,11 +15,13 @@ import {
 } from 'lucide-react'
 import NumberFlow from '@number-flow/react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
-import AlpharoomsChart from './AlpharoomsChart'
 import SectionHeader from './SectionHeader'
 import { useMode } from '../lib/mode'
 import { Reveal, m, AnimatePresence } from '../lib/motion'
 import { CHAT_AUTHORS, CHAT_LINES, VOICE_USERS, ARCH_LAYERS } from '../lib/data'
+
+// Code-split the TradingView chart (~61kb gz) out of the initial bundle.
+const AlpharoomsChart = lazy(() => import('./AlpharoomsChart'))
 
 type Msg = { id: number; author: string; color: string; text: string }
 
@@ -151,7 +153,9 @@ function Stage({ accentHex, price, up }: { accentHex: string; price: number; up:
             'radial-gradient(80% 60% at 30% 20%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 60%), radial-gradient(70% 70% at 80% 90%, color-mix(in srgb, var(--purple) 22%, transparent), transparent 60%)',
         }}
       />
-      <AlpharoomsChart accentHex={accentHex} />
+      <Suspense fallback={null}>
+        <AlpharoomsChart accentHex={accentHex} />
+      </Suspense>
 
       {/* top overlay row */}
       <div className="absolute inset-x-0 top-0 flex items-center justify-between p-3">

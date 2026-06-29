@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { Toaster, toast } from 'sonner'
 import { ModeProvider } from './lib/mode'
 import { MotionRoot } from './lib/motion'
@@ -7,8 +7,10 @@ import StatusBar from './components/StatusBar'
 import CommandMenu from './components/CommandMenu'
 import Hero from './components/Hero'
 import Alpharooms from './components/Alpharooms'
-import ScrollShowcase from './components/ScrollShowcase'
 import ThroughputLab from './components/ThroughputLab'
+
+// Code-split the GSAP-powered pinned showcase (~30kb gz) out of the initial bundle.
+const ScrollShowcase = lazy(() => import('./components/ScrollShowcase'))
 import SkillsMatrix from './components/SkillsMatrix'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
@@ -46,7 +48,9 @@ export default function App() {
           <main className="relative z-10 pt-[4.75rem]">
             <Hero />
             <Alpharooms />
-            <ScrollShowcase />
+            <Suspense fallback={<div className="min-h-screen" />}>
+              <ScrollShowcase />
+            </Suspense>
             <ThroughputLab />
             <SkillsMatrix />
             <Experience />
