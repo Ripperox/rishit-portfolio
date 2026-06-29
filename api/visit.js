@@ -1,4 +1,4 @@
-import { redis, geoFrom, visitorHash, parseJSON } from './_lib.js'
+import { redis, geoFrom, visitorHash, parseJSON, parseUA, lookupOrg, rawIP } from './_lib.js'
 
 const RECENT_KEY = 'visits:recent'
 const TOTAL_KEY = 'visits:total'
@@ -29,6 +29,39 @@ export default async function handler(req, res) {
     } else {
       total = Number(await redis.get(TOTAL_KEY)) || 0
       yourNumber = Number(await redis.get(`num:${h}`)) || total
+    }
+
+    // ---- internal visitor log (deduped by person; org resolved at request time, IP never stored) ----
+    try {
+      const existing = parseJSON(await redis.hget('visits:people', h))
+      const ua = parseUA(req.headers['user-agent'] || '')
+      let org = existing?.org
+      let isp = existing?.isp
+      if (!org) {
+        const o = await lookupOrg(rawIP(req), redis)
+        org = o.org
+        isp = o.isp
+      }
+      const person = {
+        n: existing?.n || (isNew ? Number(yourNumber) : null),
+        firstSeen: existing?.firstSeen || Date.now(),
+        lastSeen: Date.now(),
+        visits: (existing?.visits || 0) + (isNew ? 1 : 0),
+        city: you.city,
+        region: you.region,
+        country: you.country,
+        org: org || null,
+        isp: isp || null,
+        browser: ua.browser,
+        os: ua.os,
+        device: ua.device,
+        ua: (req.headers['user-agent'] || '').slice(0, 180),
+        ref: (req.headers['referer'] || '').slice(0, 200) || null,
+        lang: (req.headers['accept-language'] || '').split(',')[0] || null,
+      }
+      await redis.hset('visits:people', { [h]: JSON.stringify(person) })
+    } catch {
+      /* logging is best-effort; never block the globe */
     }
 
     const raw = await redis.lrange(RECENT_KEY, 0, 199)
