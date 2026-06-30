@@ -3,6 +3,7 @@ import NumberFlow from '@number-flow/react'
 import { ArrowDownRight, Cpu, Radio, Zap, MapPin } from 'lucide-react'
 import Terminal from './Terminal'
 import { m } from '../lib/motion'
+import { useView } from '../lib/view'
 import { PROFILE } from '../lib/data'
 
 function useTick(initial: number, min: number, max: number, step: number, ms = 1500) {
@@ -33,7 +34,7 @@ export default function Hero() {
   const tput = useTick(38, 32, 44, 1.6)
   const ping = useTick(12, 8, 18, 2)
 
-  const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  const { setView } = useView()
 
   const stats = [
     {
@@ -70,7 +71,7 @@ export default function Hero() {
   ]
 
   return (
-    <section className="relative mx-auto max-w-7xl px-4 pt-28 sm:px-6 sm:pt-32">
+    <section className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-14">
       <div className="grid items-center gap-8 grid-cols-1 lg:grid-cols-[1.05fr_1fr]">
         {/* LEFT — identity */}
         <div>
@@ -115,14 +116,14 @@ export default function Hero() {
 
           <m.div {...fade(0.6)} className="mt-7 flex flex-wrap items-center gap-3">
             <button
-              onClick={() => go('alpharooms')}
+              onClick={() => setView('alpharooms')}
               className="glass-btn group flex items-center gap-2 border border-accent px-4 py-2.5 text-[13px] font-medium text-accent transition-all hover:glow-accent"
             >
               Launch Alpharooms demo
               <ArrowDownRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5" />
             </button>
             <button
-              onClick={() => go('lab')}
+              onClick={() => setView('lab')}
               className="border border-[var(--line)] bg-[var(--panel)] px-4 py-2.5 text-[13px] text-zinc-300 transition-colors hover:border-zinc-600 hover:text-white"
             >
               Node vs Rust lab →

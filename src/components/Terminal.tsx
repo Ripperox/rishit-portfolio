@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 import { useMode } from '../lib/mode'
+import { useView } from '../lib/view'
 import { PROFILE } from '../lib/data'
 
 type Line = { kind: 'in' | 'out' | 'sys' | 'err' | 'accent'; text: string; deco?: boolean }
@@ -25,12 +26,9 @@ const HELP: Line[] = [
   { kind: 'out', text: '  clear       wipe the screen' },
 ]
 
-function scrollTo(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-}
-
 export default function Terminal() {
   const { toggle } = useMode()
+  const { setView } = useView()
   const [history, setHistory] = useState<Line[]>(BANNER)
   const [value, setValue] = useState('')
   const [cmdLog, setCmdLog] = useState<string[]>([])
@@ -79,7 +77,7 @@ export default function Terminal() {
           { kind: 'out', text: '  K6 · Playwright · Grafana' },
           { kind: 'sys', text: "↳ run 'lab' to watch the Rust vs Node engine race" },
         ])
-        setTimeout(() => scrollTo('skills'), 350)
+        setTimeout(() => setView('work'), 350)
         break
       case 'alpharooms':
       case 'projects':
@@ -89,18 +87,18 @@ export default function Terminal() {
           { kind: 'out', text: 'live video (AWS IVS) · WebRTC voice · chat · polls · trading terminal' },
           { kind: 'sys', text: '↳ scrolling to the live interactive demo…' },
         ])
-        setTimeout(() => scrollTo('alpharooms'), 350)
+        setTimeout(() => setView('alpharooms'), 350)
         break
       case 'lab':
       case 'benchmark':
         push([{ kind: 'sys', text: '↳ opening throughput lab: node.js vs rust…' }])
-        setTimeout(() => scrollTo('lab'), 350)
+        setTimeout(() => setView('lab'), 350)
         break
       case 'experience':
       case 'work':
       case 'log':
         push([{ kind: 'sys', text: '↳ printing career log…' }])
-        setTimeout(() => scrollTo('work'), 350)
+        setTimeout(() => setView('work'), 350)
         break
       case 'contact':
       case 'hire':
@@ -108,7 +106,7 @@ export default function Terminal() {
           { kind: 'accent', text: 'Opening secure channel…' },
           { kind: 'out', text: `${PROFILE.email} · +91 ${PROFILE.phone}` },
         ])
-        setTimeout(() => scrollTo('contact'), 350)
+        setTimeout(() => setView('contact'), 350)
         break
       case 'social':
       case 'links':

@@ -6,23 +6,21 @@ import {
   Gauge,
   Globe2,
   Boxes,
-  GitCommitHorizontal,
   Mail,
   Github,
   Linkedin,
   TerminalSquare,
-  ArrowUp,
   SunMoon,
   Phone,
 } from 'lucide-react'
 import { useMode } from '../lib/mode'
+import { useView } from '../lib/view'
 import { PROFILE } from '../lib/data'
-
-const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
 export default function CommandMenu() {
   const [open, setOpen] = useState(false)
   const { toggle, mode } = useMode()
+  const { setView } = useView()
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -61,15 +59,13 @@ export default function CommandMenu() {
       <Command.List>
         <Command.Empty>No results found.</Command.Empty>
 
-        <Command.Group heading="Navigate">
-          <Item icon={ArrowUp} label="Top / Hero" onSelect={() => run(() => window.scrollTo({ top: 0, behavior: 'smooth' }))} />
-          <Item icon={Radio} label="Alpharooms — live demo" kbd="01" onSelect={() => run(() => go('alpharooms'))} />
-          <Item icon={Gauge} label="Throughput Lab — Node vs Rust" kbd="02" onSelect={() => run(() => go('lab'))} />
-          <Item icon={Boxes} label="Stack & Selected Work" kbd="03" onSelect={() => run(() => go('skills'))} />
-          <Item icon={GitCommitHorizontal} label="Career Log" kbd="04" onSelect={() => run(() => go('work'))} />
-          <Item icon={Globe2} label="Live Signal — globe & guestbook" kbd="05" onSelect={() => run(() => go('live'))} />
-          <Item icon={Github} label="Build Log — live GitHub" kbd="06" onSelect={() => run(() => go('github'))} />
-          <Item icon={Mail} label="Contact" kbd="07" onSelect={() => run(() => go('contact'))} />
+        <Command.Group heading="Go to view">
+          <Item icon={TerminalSquare} label="Home — command center" kbd="01" onSelect={() => run(() => setView('home'))} />
+          <Item icon={Radio} label="Alpharooms — live demo" kbd="02" onSelect={() => run(() => setView('alpharooms'))} />
+          <Item icon={Gauge} label="Throughput Lab — Node vs Rust" kbd="03" onSelect={() => run(() => setView('lab'))} />
+          <Item icon={Boxes} label="Stack & Work — skills, projects, career" kbd="04" onSelect={() => run(() => setView('work'))} />
+          <Item icon={Globe2} label="Live Signal — globe, guestbook, GitHub" kbd="05" onSelect={() => run(() => setView('live'))} />
+          <Item icon={Mail} label="Contact" kbd="06" onSelect={() => run(() => setView('contact'))} />
         </Command.Group>
 
         <Command.Group heading="Actions">
