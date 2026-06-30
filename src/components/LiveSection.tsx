@@ -26,7 +26,6 @@ export default function LiveSection() {
   const [draft, setDraft] = useState('')
   const [sending, setSending] = useState(false)
   const [listRef] = useAutoAnimate<HTMLDivElement>({ duration: 200 })
-  const posted = useRef(false)
 
   useEffect(() => {
     getJSON<Visit>('/api/visit').then((d) => d && setVisit(d))
