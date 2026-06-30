@@ -31,7 +31,7 @@ export default function App() {
   return (
     <ModeProvider>
       <MotionRoot>
-        <div className="grain scanlines relative min-h-screen text-[var(--text)]">
+        <div className="grain scanlines relative min-h-screen overflow-x-clip text-[var(--text)]">
           <Background />
           <StatusBar />
           <CommandMenu />

@@ -54,6 +54,7 @@
 html {
   scroll-behavior: smooth;
   background: var(--bg);
+  overflow-x: hidden; /* prevent horizontal panning on mobile (html is the scroller) */
 }
 
 body {
@@ -64,6 +65,9 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
 }
 
 .font-display {

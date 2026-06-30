@@ -42,7 +42,7 @@ export default function StatusBar() {
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50 overflow-x-clip">
       {/* Top control row */}
       <div className="flex h-12 items-center gap-3 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] px-3 backdrop-blur-md sm:px-5">
         {/* brand */}
