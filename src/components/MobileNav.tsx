@@ -1,7 +1,7 @@
 import { Command, Boxes } from 'lucide-react'
 import { useView } from '../lib/view'
 import { useMode } from '../lib/mode'
-import { NAV } from './Sidebar'
+import { NAV } from './TopBar'
 
 export function MobileTopBar() {
   const { setView } = useView()
@@ -51,7 +51,7 @@ export function MobileBottomNav() {
             }`}
           >
             <n.icon className="h-[18px] w-[18px]" />
-            <span className="leading-none">{n.label.split(' ')[0]}</span>
+            <span className="leading-none">{n.short}</span>
           </button>
         )
       })}

@@ -4,10 +4,10 @@ import { ModeProvider } from './lib/mode'
 import { ViewProvider, useView, type View } from './lib/view'
 import { MotionRoot, m } from './lib/motion'
 import Background from './components/Background'
-import Sidebar from './components/Sidebar'
+import TopBar from './components/TopBar'
 import { MobileTopBar, MobileBottomNav } from './components/MobileNav'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import CommandMenu from './components/CommandMenu'
-import Ticker from './components/Ticker'
 import Hero from './components/Hero'
 import Alpharooms from './components/Alpharooms'
 import ThroughputLab from './components/ThroughputLab'
@@ -50,7 +50,6 @@ function Shell() {
   const { view } = useView()
   const mainRef = useRef<HTMLElement>(null)
 
-  // each view starts at the top of the panel
   useEffect(() => {
     mainRef.current?.scrollTo({ top: 0 })
   }, [view])
@@ -64,26 +63,25 @@ function Shell() {
   }, [])
 
   return (
-    <div className="grain scanlines relative flex h-[100dvh] overflow-hidden text-[var(--text)]">
+    <div className="grain scanlines relative flex h-[100dvh] flex-col overflow-hidden text-[var(--text)]">
       <Background />
-      <Sidebar />
+      <TopBar />
       <MobileTopBar />
 
       <main
         ref={mainRef}
         className="relative z-10 flex-1 overflow-y-auto overflow-x-clip pb-16 pt-12 lg:pb-0 lg:pt-0"
       >
-        <Ticker className="sticky top-0 z-20 hidden lg:block" />
-        {/* keyed on view → remounts + plays the enter animation on each switch (snappy, no exit wait) */}
-        <m.div
-          key={view}
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="min-h-full"
-        >
-          {renderView(view)}
-        </m.div>
+        <ErrorBoundary key={view}>
+          <m.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="min-h-full"
+          >
+            {renderView(view)}
+          </m.div>
+        </ErrorBoundary>
       </main>
 
       <MobileBottomNav />

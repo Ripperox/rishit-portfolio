@@ -3,8 +3,10 @@ import createGlobe from 'cobe'
 
 export type Marker = { location: [number, number]; size: number }
 
-/* cobe v2: no onRender callback — you drive the spin yourself with a rAF loop
-   that calls globe.update({ phi }). */
+/* cobe v2: create the globe ONCE, then drive the spin via a rAF loop and push
+   marker/color changes through globe.update() — no destroy/recreate churn (which
+   raced update() against destroy() and could throw). Fully guarded so a WebGL
+   hiccup can never crash the view. */
 export default function Globe({
   markers,
   markerColor = [0, 1, 0.62],
@@ -13,63 +15,98 @@ export default function Globe({
   markerColor?: [number, number, number]
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const globeRef = useRef<{ update: (s: any) => void; destroy: () => void } | null>(null)
   const phiRef = useRef(0)
   const interacting = useRef<number | null>(null)
   const movement = useRef(0)
+  const markersRef = useRef(markers)
+  markersRef.current = markers
 
+  // create once
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
+    let destroyed = false
     let raf = 0
     let width = canvas.offsetWidth || 360
 
-    const globe = createGlobe(canvas, {
-      devicePixelRatio: 2,
-      width: width * 2,
-      height: width * 2,
-      phi: 0,
-      theta: 0.28,
-      dark: 1,
-      diffuse: 1.3,
-      mapSamples: 16000,
-      mapBrightness: 7.5,
-      baseColor: [0.24, 0.27, 0.32],
-      markerColor,
-      glowColor: [0.12, 0.42, 0.34],
-      markers,
-    })
+    const onResize = () => {
+      width = canvas.offsetWidth || width
+      try {
+        globeRef.current?.update({ width: width * 2, height: width * 2 })
+      } catch {
+        /* noop */
+      }
+    }
+    window.addEventListener('resize', onResize)
+
+    let globe: ReturnType<typeof createGlobe> | null = null
+    try {
+      globe = createGlobe(canvas, {
+        devicePixelRatio: 2,
+        width: width * 2,
+        height: width * 2,
+        phi: 0,
+        theta: 0.28,
+        dark: 1,
+        diffuse: 1.3,
+        mapSamples: 16000,
+        mapBrightness: 7.5,
+        baseColor: [0.24, 0.27, 0.32],
+        markerColor,
+        glowColor: [0.12, 0.42, 0.34],
+        markers: markersRef.current,
+      })
+    } catch {
+      window.removeEventListener('resize', onResize)
+      return
+    }
+    globeRef.current = globe
 
     let phi = phiRef.current
     const render = () => {
+      if (destroyed) return
       if (interacting.current === null) phi += 0.0035
-      globe.update({ phi: phi + movement.current * 0.01 })
+      try {
+        globe!.update({ phi: phi + movement.current * 0.01 })
+      } catch {
+        return
+      }
       phiRef.current = phi
       raf = requestAnimationFrame(render)
     }
     raf = requestAnimationFrame(render)
 
-    const onResize = () => {
-      width = canvas.offsetWidth || width
-      globe.update({ width: width * 2, height: width * 2 })
-    }
-    window.addEventListener('resize', onResize)
-
     const fade = setTimeout(() => {
-      canvas.style.opacity = '1'
+      if (canvas) canvas.style.opacity = '1'
     }, 120)
 
     return () => {
+      destroyed = true
       clearTimeout(fade)
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', onResize)
-      globe.destroy()
+      try {
+        globe?.destroy()
+      } catch {
+        /* noop */
+      }
+      globeRef.current = null
     }
-    // recreate when markers / color change
+  }, [])
+
+  // push marker / color updates without recreating the globe
+  useEffect(() => {
+    try {
+      globeRef.current?.update({ markers, markerColor })
+    } catch {
+      /* noop */
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(markers), markerColor.join(',')])
 
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[440px]">
-      {/* glow halo behind the globe (shows through the transparent corners) */}
       <div
         className="pointer-events-none absolute inset-[8%] rounded-full"
         style={{
