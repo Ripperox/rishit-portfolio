@@ -55,7 +55,7 @@ export default function GitHubActivity() {
         Proof I actually ship, not just claim it.
       </SectionHeader>
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_1.4fr]">
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-[1fr_1.4fr]">
         {/* stats + languages */}
         <div className="corner-frame panel flex flex-col p-5">
           <div className="grid grid-cols-3 gap-2">

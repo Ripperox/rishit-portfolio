@@ -100,7 +100,7 @@ export default function Alpharooms() {
         </div>
 
         {/* body */}
-        <div className="grid lg:grid-cols-[1.55fr_1fr]">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.55fr_1fr]">
           {/* LEFT: stage / arch */}
           <div className="border-b border-[var(--line)] lg:border-b-0 lg:border-r">
             <AnimatePresence mode="wait" initial={false}>

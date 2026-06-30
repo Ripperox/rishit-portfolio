@@ -21,7 +21,7 @@ export default function SkillsMatrix() {
         for detail; the work on the right is real and shippable.
       </SectionHeader>
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_1.25fr]">
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-[1fr_1.25fr]">
         {/* CAPABILITY MATRIX */}
         <div className="corner-frame panel p-4 sm:p-5">
           <div className="mb-4 flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-zinc-500">

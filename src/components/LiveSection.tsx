@@ -82,7 +82,7 @@ export default function LiveSection() {
         live guestbook — leave a mark.
       </SectionHeader>
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_1fr]">
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-[1fr_1fr]">
         {/* GLOBE + counter */}
         <div className="corner-frame panel flex flex-col items-center justify-center p-5">
           <Globe markers={markers} markerColor={COLOR[mode]} />

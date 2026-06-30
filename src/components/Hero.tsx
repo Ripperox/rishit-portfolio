@@ -71,7 +71,7 @@ export default function Hero() {
 
   return (
     <section className="relative mx-auto max-w-7xl px-4 pt-28 sm:px-6 sm:pt-32">
-      <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_1fr]">
+      <div className="grid items-center gap-8 grid-cols-1 lg:grid-cols-[1.05fr_1fr]">
         {/* LEFT — identity */}
         <div>
           <m.div {...fade(0.05)} className="flex items-center gap-2 text-[11px] tracking-[0.25em] text-zinc-500">

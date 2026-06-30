@@ -208,7 +208,7 @@ export default function ThroughputLab() {
       </div>
 
       {/* ENGINE CARDS */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
         {ENGINES.map((e) => (
           <EngineCard
             key={e.key}

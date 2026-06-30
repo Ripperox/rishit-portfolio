@@ -192,7 +192,7 @@ export default function Terminal() {
       </div>
 
       {/* body */}
-      <div ref={bodyRef} className="flex-1 overflow-y-auto px-3.5 py-3">
+      <div ref={bodyRef} className="flex-1 overflow-y-auto overflow-x-hidden px-3.5 py-3">
         <div className="mb-1 text-zinc-600">
           <TypeAnimation
             sequence={['booting rishit-os…', 500, 'booting rishit-os… mainnet linked ✓', 800]}
@@ -220,7 +220,7 @@ export default function Terminal() {
             autoComplete="off"
             autoCapitalize="off"
             aria-label="terminal input"
-            className="w-full flex-1 bg-transparent text-zinc-200 caret-transparent outline-none placeholder:text-zinc-700"
+            className="min-w-0 flex-1 bg-transparent text-zinc-200 caret-transparent outline-none placeholder:text-zinc-700"
             placeholder="type a command…"
           />
           <span className="pointer-events-none -ml-2 inline-block h-4 w-2 cursor-blink bg-accent" />

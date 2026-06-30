@@ -80,7 +80,7 @@ export default function Contact() {
         Drop a message — it's submitted like a signed commit. I read everything; expect a reply within a day.
       </SectionHeader>
 
-      <div className="grid gap-4 lg:grid-cols-[1.3fr_1fr]">
+      <div className="grid gap-4 grid-cols-1 lg:grid-cols-[1.3fr_1fr]">
         {/* FORM / COMMIT */}
         <div className="corner-frame panel overflow-hidden">
           {/* commit header */}
