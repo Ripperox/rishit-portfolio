@@ -6,7 +6,7 @@
   "description": "Tech-noir interactive portfolio for Rishit Dhote — featuring the Alpharooms live demo.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
