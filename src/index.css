@@ -47,8 +47,12 @@
   --accent-rgb: 63, 223, 190;
 }
 
-* {
-  border-color: var(--line);
+/* Default border color — in @layer base so Tailwind border-color utilities
+   (border-accent, border-transparent, border-[color:…]) still override it. */
+@layer base {
+  * {
+    border-color: var(--line);
+  }
 }
 
 html {

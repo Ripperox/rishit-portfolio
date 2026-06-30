@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Toaster, toast } from 'sonner'
 import { ModeProvider } from './lib/mode'
 import { ViewProvider, useView, type View } from './lib/view'
-import { MotionRoot, m, AnimatePresence } from './lib/motion'
+import { MotionRoot, m } from './lib/motion'
 import Background from './components/Background'
 import Sidebar from './components/Sidebar'
 import { MobileTopBar, MobileBottomNav } from './components/MobileNav'
@@ -74,18 +74,16 @@ function Shell() {
         className="relative z-10 flex-1 overflow-y-auto overflow-x-clip pb-16 pt-12 lg:pb-0 lg:pt-0"
       >
         <Ticker className="sticky top-0 z-20 hidden lg:block" />
-        <AnimatePresence mode="wait">
-          <m.div
-            key={view}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-            className="min-h-full"
-          >
-            {renderView(view)}
-          </m.div>
-        </AnimatePresence>
+        {/* keyed on view → remounts + plays the enter animation on each switch (snappy, no exit wait) */}
+        <m.div
+          key={view}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="min-h-full"
+        >
+          {renderView(view)}
+        </m.div>
       </main>
 
       <MobileBottomNav />
