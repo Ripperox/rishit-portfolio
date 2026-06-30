@@ -46,7 +46,7 @@ export default function ScrollShowcase() {
 
   return (
     <section ref={scope} className="relative">
-      <div className="pin-panel relative flex min-h-screen flex-col justify-center overflow-hidden px-4 sm:px-6">
+      <div className="pin-panel relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-4 sm:px-6">
         {/* scrub progress bar */}
         <div className="absolute left-0 top-0 h-[2px] w-full origin-left bg-accent show-bar" />
 

@@ -3,12 +3,12 @@ import { TypeAnimation } from 'react-type-animation'
 import { useMode } from '../lib/mode'
 import { PROFILE } from '../lib/data'
 
-type Line = { kind: 'in' | 'out' | 'sys' | 'err' | 'accent'; text: string }
+type Line = { kind: 'in' | 'out' | 'sys' | 'err' | 'accent'; text: string; deco?: boolean }
 
 const BANNER: Line[] = [
-  { kind: 'accent', text: '┌─ rishit.dhote :: realtime systems shell ─────────────┐' },
+  { kind: 'accent', text: '┌─ rishit.dhote :: realtime systems shell ─────────────┐', deco: true },
   { kind: 'sys', text: "  Type 'help' to list commands. Try: skills · alpharooms · contact" },
-  { kind: 'accent', text: '└──────────────────────────────────────────────────────┘' },
+  { kind: 'accent', text: '└──────────────────────────────────────────────────────┘', deco: true },
 ]
 
 const HELP: Line[] = [
@@ -203,7 +203,10 @@ export default function Terminal() {
           />
         </div>
         {history.map((l, i) => (
-          <div key={i} className={`whitespace-pre-wrap break-words ${color[l.kind]}`}>
+          <div
+            key={i}
+            className={`${l.deco ? 'overflow-hidden whitespace-pre' : 'whitespace-pre-wrap break-words'} ${color[l.kind]}`}
+          >
             {l.text}
           </div>
         ))}

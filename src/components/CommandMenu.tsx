@@ -4,6 +4,7 @@ import { toast } from 'sonner'
 import {
   Radio,
   Gauge,
+  Globe2,
   Boxes,
   GitCommitHorizontal,
   Mail,
@@ -64,9 +65,11 @@ export default function CommandMenu() {
           <Item icon={ArrowUp} label="Top / Hero" onSelect={() => run(() => window.scrollTo({ top: 0, behavior: 'smooth' }))} />
           <Item icon={Radio} label="Alpharooms — live demo" kbd="01" onSelect={() => run(() => go('alpharooms'))} />
           <Item icon={Gauge} label="Throughput Lab — Node vs Rust" kbd="02" onSelect={() => run(() => go('lab'))} />
-          <Item icon={Boxes} label="Stack & Ecosystems" kbd="03" onSelect={() => run(() => go('skills'))} />
+          <Item icon={Boxes} label="Stack & Selected Work" kbd="03" onSelect={() => run(() => go('skills'))} />
           <Item icon={GitCommitHorizontal} label="Career Log" kbd="04" onSelect={() => run(() => go('work'))} />
-          <Item icon={Mail} label="Contact" kbd="05" onSelect={() => run(() => go('contact'))} />
+          <Item icon={Globe2} label="Live Signal — globe & guestbook" kbd="05" onSelect={() => run(() => go('live'))} />
+          <Item icon={Github} label="Build Log — live GitHub" kbd="06" onSelect={() => run(() => go('github'))} />
+          <Item icon={Mail} label="Contact" kbd="07" onSelect={() => run(() => go('contact'))} />
         </Command.Group>
 
         <Command.Group heading="Actions">

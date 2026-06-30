@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import NumberFlow from '@number-flow/react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { toast } from 'sonner'
@@ -62,7 +62,6 @@ export default function LiveSection() {
       if (r.ok && data?.messages) {
         setMessages(data.messages)
         setDraft('')
-        posted.current = true
         toast.success('Signed the wall', { description: 'your ping is on the globe' })
       } else {
         toast.error(data?.error || 'could not post right now')
@@ -151,8 +150,9 @@ export default function LiveSection() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               maxLength={24}
+              aria-label="your name (optional)"
               placeholder="name (optional)"
-              className="mb-2 w-full bg-[var(--panel-2)] px-2.5 py-1.5 text-[12px] text-zinc-200 outline-none placeholder:text-zinc-600 focus:ring-1 focus:ring-[var(--accent)]"
+              className="mb-2 w-full min-w-0 bg-[var(--panel-2)] px-2.5 py-1.5 text-[12px] text-zinc-200 outline-none placeholder:text-zinc-600 focus:ring-1 focus:ring-[var(--accent)]"
             />
             <div className="flex items-center gap-2">
               <input
@@ -160,8 +160,9 @@ export default function LiveSection() {
                 onChange={(e) => setDraft(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && send()}
                 maxLength={140}
+                aria-label="guestbook message"
                 placeholder="leave a message for the world…"
-                className="w-full flex-1 bg-[var(--panel-2)] px-2.5 py-2 text-[12px] text-zinc-200 outline-none placeholder:text-zinc-600 focus:ring-1 focus:ring-[var(--accent)]"
+                className="min-w-0 flex-1 bg-[var(--panel-2)] px-2.5 py-2 text-[12px] text-zinc-200 outline-none placeholder:text-zinc-600 focus:ring-1 focus:ring-[var(--accent)]"
               />
               <button
                 onClick={send}

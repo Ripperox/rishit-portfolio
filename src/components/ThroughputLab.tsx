@@ -256,10 +256,10 @@ function EngineCard({
       {/* header */}
       <div className="flex items-center gap-2.5 border-b border-[var(--line)] bg-[var(--panel-2)] px-4 py-3">
         <span className="h-2.5 w-2.5 rounded-full" style={{ background: engine.color, boxShadow: `0 0 10px ${engine.color}` }} />
-        <span className="font-display text-base font-semibold text-zinc-100">{engine.name}</span>
-        <span className="text-[11px] text-zinc-500">{engine.runtime[wl]}</span>
+        <span className="shrink-0 font-display text-base font-semibold text-zinc-100">{engine.name}</span>
+        <span className="min-w-0 truncate text-[11px] text-zinc-500">{engine.runtime[wl]}</span>
         {saturated && (
-          <span className="ml-auto flex items-center gap-1 border border-rose-500/50 bg-rose-500/10 px-2 py-0.5 text-[10px] font-semibold text-rose-400">
+          <span className="ml-auto flex shrink-0 items-center gap-1 border border-rose-500/50 bg-rose-500/10 px-2 py-0.5 text-[10px] font-semibold text-rose-400">
             <AlertTriangle className="h-3 w-3" /> SATURATED
           </span>
         )}

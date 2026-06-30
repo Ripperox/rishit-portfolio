@@ -120,65 +120,6 @@ export const SKILL_GROUPS: { key: string; label: string; accent: string; items: 
   },
 ]
 
-export interface ChainTool {
-  label: string
-  hot?: boolean
-}
-
-export const ECOSYSTEMS: {
-  key: string
-  name: string
-  ticker: string
-  color: string
-  level: number
-  desc: string
-  tools: ChainTool[]
-  stats: { label: string; value: string }[]
-}[] = [
-  {
-    key: 'solana',
-    name: 'Solana',
-    ticker: 'SOL',
-    color: '#14F195',
-    level: 94,
-    desc: 'High-velocity ingest & execution. Yellowstone gRPC streams from mainnet, parsed in Rust.',
-    tools: [
-      { label: 'pump.fun bonding curves', hot: true },
-      { label: 'Raydium AMM swaps', hot: true },
-      { label: 'Custom SPL token generator', hot: true },
-      { label: 'Yellowstone gRPC ingest' },
-      { label: 'OHLCV aggregation' },
-      { label: 'Turnkey wallets' },
-    ],
-    stats: [
-      { label: 'block ingest', value: '~400ms' },
-      { label: 'price fanout', value: '<1s' },
-      { label: 'parsers', value: 'Rust' },
-    ],
-  },
-  {
-    key: 'tron',
-    name: 'TRON',
-    ticker: 'TRX',
-    color: '#FF0013',
-    level: 86,
-    desc: 'TRC-20 tooling & contract interaction. Token minting, transfers, and on-chain reads at scale.',
-    tools: [
-      { label: 'TRC-20 token generator', hot: true },
-      { label: 'Smart contract calls', hot: true },
-      { label: 'Energy / bandwidth tuning' },
-      { label: 'Event log indexing' },
-      { label: 'Multi-sig flows' },
-      { label: 'TronGrid APIs' },
-    ],
-    stats: [
-      { label: 'finality', value: '~3s' },
-      { label: 'fee model', value: 'energy' },
-      { label: 'standard', value: 'TRC-20' },
-    ],
-  },
-]
-
 export interface Job {
   role: string
   company: string

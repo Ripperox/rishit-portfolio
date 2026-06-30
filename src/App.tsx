@@ -22,7 +22,7 @@ const ScrollShowcase = lazy(() => import('./components/ScrollShowcase'))
 export default function App() {
   useEffect(() => {
     const t = setTimeout(
-      () => toast('Tip — press ⌘K', { description: 'open the command palette', duration: 5000 }),
+      () => toast('Tip — press ⌘K', { description: 'or tap ⌘ in the header to jump anywhere', duration: 5000 }),
       2800,
     )
     return () => clearTimeout(t)

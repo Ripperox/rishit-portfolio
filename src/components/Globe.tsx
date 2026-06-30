@@ -80,7 +80,7 @@ export default function Globe({
       <canvas
         ref={canvasRef}
         className="relative h-full w-full opacity-0 transition-opacity duration-700"
-        style={{ contain: 'layout paint size', cursor: 'grab' }}
+        style={{ contain: 'layout paint size', cursor: 'grab', touchAction: 'pan-y' }}
         onPointerDown={(e) => {
           interacting.current = e.clientX - movement.current
           e.currentTarget.style.cursor = 'grabbing'

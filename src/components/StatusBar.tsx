@@ -7,7 +7,7 @@ import { PROFILE } from '../lib/data'
 const NAV = [
   { id: 'alpharooms', label: 'Alpharooms' },
   { id: 'lab', label: 'Lab' },
-  { id: 'skills', label: 'Work' },
+  { id: 'skills', label: 'Stack' },
   { id: 'live', label: 'Live' },
   { id: 'github', label: 'GitHub' },
   { id: 'contact', label: 'Contact' },
@@ -46,7 +46,11 @@ export default function StatusBar() {
       {/* Top control row */}
       <div className="flex h-12 items-center gap-3 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_82%,transparent)] px-3 backdrop-blur-md sm:px-5">
         {/* brand */}
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="group flex items-center gap-2">
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Back to top"
+          className="group flex items-center gap-2"
+        >
           <span className="grid h-7 w-7 place-items-center border border-accent text-accent glow-accent">
             <span className="font-display text-sm font-bold leading-none">R</span>
           </span>
@@ -76,7 +80,8 @@ export default function StatusBar() {
         {/* command palette trigger */}
         <button
           onClick={() => window.dispatchEvent(new Event('toggle-cmdk'))}
-          className="ml-auto flex items-center gap-1.5 border border-[var(--line)] bg-[var(--panel-2)] px-2 py-1 text-[11px] text-zinc-400 transition-colors hover:border-accent hover:text-accent md:ml-0"
+          aria-label="Open command palette"
+          className="ml-auto flex items-center gap-1.5 border border-[var(--line)] bg-[var(--panel-2)] px-2 py-1.5 text-[11px] text-zinc-400 transition-colors hover:border-accent hover:text-accent md:ml-0"
           title="Open command palette"
         >
           <Command className="h-3.5 w-3.5" />
@@ -104,7 +109,8 @@ export default function StatusBar() {
         {/* mode toggle */}
         <button
           onClick={toggle}
-          className="group flex items-center gap-1.5 border border-accent bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] px-2.5 py-1 text-[11px] font-medium text-accent transition-all hover:glow-accent"
+          aria-label="Switch interface mode"
+          className="group flex items-center gap-1.5 border border-accent bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] px-2.5 py-1.5 text-[11px] font-medium text-accent transition-all hover:glow-accent"
           title="Switch interface mode"
         >
           {mode === 'terminal' ? <TerminalSquare className="h-3.5 w-3.5" /> : <Boxes className="h-3.5 w-3.5" />}

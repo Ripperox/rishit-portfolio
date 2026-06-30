@@ -25,10 +25,18 @@ export function geoFrom(req) {
   return { lat: Math.round(lat * 10) / 10, lng: Math.round(lng * 10) / 10, city, region, country }
 }
 
-/* Raw client IP (used transiently for org lookup — never persisted). */
+/* Trusted client IP. Prefer Vercel's x-real-ip (set by the platform); the
+   leftmost x-forwarded-for entry is client-spoofable, so fall back to the
+   LAST hop only. Used transiently for org lookup / hashing — never persisted. */
 export function rawIP(req) {
-  return (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.headers['x-real-ip'] || null
+  const xff = (req.headers['x-forwarded-for'] || '').split(',').map((s) => s.trim()).filter(Boolean)
+  return req.headers['x-real-ip'] || xff[xff.length - 1] || null
 }
+
+const IPV4 = /^(\d{1,3}\.){3}\d{1,3}$/
+const isValidIP = (ip) => !!ip && (IPV4.test(ip) || ip.includes(':'))
+const isPrivateIP = (ip) =>
+  /^(10\.|127\.|0\.|169\.254\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|::1|fc|fd|fe80)/i.test(ip || '')
 
 /* Lightweight UA → browser/os/device (no dependency). */
 export function parseUA(ua = '') {
@@ -53,24 +61,21 @@ export function parseUA(ua = '') {
 /* Resolve org/ISP/company from an IP at request time, cached by IP-hash so the
    raw IP is never stored. Returns { org, isp, asn, flags } or nulls on failure. */
 export async function lookupOrg(ip, redis) {
-  if (!ip || ip === 'anon') return { org: null, isp: null, asn: null }
-  const key = 'org:' + crypto.createHash('sha256').update(ip).digest('hex').slice(0, 16)
+  if (!isValidIP(ip) || isPrivateIP(ip)) return { org: null, isp: null, asn: null }
+  const salt = process.env.HASH_SALT || 'rishit-portfolio'
+  const key = 'org:' + crypto.createHash('sha256').update(ip + salt).digest('hex').slice(0, 16)
   if (redis) {
     const cached = parseJSON(await redis.get(key))
     if (cached) return cached
   }
   try {
-    const r = await fetch(`http://ip-api.com/json/${ip}?fields=status,org,isp,as,mobile,proxy,hosting`, {
+    // HTTPS (no cleartext IP transit), org/ISP/ASN only
+    const r = await fetch(`https://ipwho.is/${encodeURIComponent(ip)}?fields=success,connection`, {
       signal: AbortSignal.timeout(2500),
     })
     const d = await r.json()
-    const out = {
-      org: d.org || d.isp || null,
-      isp: d.isp || null,
-      asn: d.as || null,
-      mobile: !!d.mobile,
-      datacenter: !!d.proxy || !!d.hosting,
-    }
+    const c = (d && d.connection) || {}
+    const out = { org: c.org || c.isp || null, isp: c.isp || null, asn: c.asn ? 'AS' + c.asn : null }
     if (redis) await redis.set(key, JSON.stringify(out), { ex: 7 * 86400 })
     return out
   } catch {
@@ -78,13 +83,20 @@ export async function lookupOrg(ip, redis) {
   }
 }
 
-/* Stable per-visitor hash from IP+UA — used only for dedupe/rate-limit.
-   The IP is hashed and discarded; it is never persisted. */
+/* Stable per-visitor hash from the TRUSTED IP only (UA dropped — it's
+   client-controlled and trivially rotatable). IP is hashed and never stored. */
 export function visitorHash(req) {
-  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.headers['x-real-ip'] || 'anon'
-  const ua = req.headers['user-agent'] || ''
   const salt = process.env.HASH_SALT || 'rishit-portfolio'
-  return crypto.createHash('sha256').update(ip + ua + salt).digest('hex').slice(0, 16)
+  return crypto.createHash('sha256').update((rawIP(req) || 'anon') + salt).digest('hex').slice(0, 16)
+}
+
+/* Constant-time secret comparison (admin key). */
+export function safeKeyEqual(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false
+  const ab = Buffer.from(a)
+  const bb = Buffer.from(b)
+  if (ab.length !== bb.length) return false
+  return crypto.timingSafeEqual(ab, bb)
 }
 
 export function parseJSON(v) {

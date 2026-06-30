@@ -1,4 +1,4 @@
-import { redis, geoFrom, visitorHash, parseJSON } from './_lib.js'
+import { redis, geoFrom, visitorHash, parseJSON, safeKeyEqual } from './_lib.js'
 
 const KEY = 'guestbook'
 const MAX_AGE = 48 * 60 * 60 * 1000 // 48h
@@ -31,7 +31,8 @@ export default async function handler(req, res) {
   if (req.method === 'DELETE') {
     if (!redis) return res.status(503).json({ error: 'not configured' })
     const key = req.query?.key
-    if (!process.env.ADMIN_KEY || key !== process.env.ADMIN_KEY) return res.status(403).json({ error: 'forbidden' })
+    if (!process.env.ADMIN_KEY || !safeKeyEqual(String(key || ''), process.env.ADMIN_KEY))
+      return res.status(403).json({ error: 'forbidden' })
     await redis.del(KEY)
     return res.status(200).json({ ok: true, messages: [] })
   }
@@ -66,9 +67,10 @@ export default async function handler(req, res) {
       const entry = { name, message, city: geo.city, country: geo.country, lat: geo.lat, lng: geo.lng, t: Date.now() }
       await redis.lpush(KEY, JSON.stringify(entry))
       await redis.ltrim(KEY, 0, 99)
+      await redis.expire(KEY, 7 * 24 * 60 * 60) // whole wall clears if idle for 7 days
       return res.status(200).json({ live: true, ok: true, messages: await recentMessages() })
-    } catch (err) {
-      return res.status(500).json({ error: String(err?.message || err) })
+    } catch {
+      return res.status(500).json({ error: 'could not post' })
     }
   }
 

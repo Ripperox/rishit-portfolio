@@ -1,4 +1,4 @@
-import { redis, parseJSON } from '../_lib.js'
+import { redis, parseJSON, safeKeyEqual } from '../_lib.js'
 
 const esc = (s) =>
   String(s ?? '')
@@ -43,7 +43,7 @@ const topN = (people, key, n = 6) => {
 export default async function handler(req, res) {
   const key = req.query?.key
   if (!process.env.ADMIN_KEY) return res.status(503).json({ error: 'ADMIN_KEY not configured' })
-  if (key !== process.env.ADMIN_KEY) return res.status(403).json({ error: 'forbidden' })
+  if (!safeKeyEqual(String(key || ''), process.env.ADMIN_KEY)) return res.status(403).json({ error: 'forbidden' })
   if (!redis) return res.status(503).json({ error: 'storage not configured' })
 
   const all = (await redis.hgetall('visits:people')) || {}
@@ -68,6 +68,7 @@ export default async function handler(req, res) {
     arr.map(([k, v]) => `<span class="chip">${esc(k)} <b>${v}</b></span>`).join('') || '<span class="muted">—</span>'
 
   const rows = people
+    .slice(0, 500)
     .map(
       (p) => `<tr>
       <td class="accent">#${p.n ?? '—'}</td>

@@ -1,6 +1,7 @@
 export async function getJSON<T = any>(url: string, opts?: RequestInit): Promise<T | null> {
   try {
     const r = await fetch(url, opts)
+    if (!r.ok) return null
     return (await r.json()) as T
   } catch {
     return null

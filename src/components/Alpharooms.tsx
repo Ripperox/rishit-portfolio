@@ -454,8 +454,9 @@ function ChatPanel() {
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && send()}
+          aria-label="chat message"
           placeholder="say something…"
-          className="w-full flex-1 bg-[var(--panel-2)] px-2.5 py-2 text-[12px] text-zinc-200 outline-none placeholder:text-zinc-600 focus:ring-1 focus:ring-[var(--accent)]"
+          className="min-w-0 flex-1 bg-[var(--panel-2)] px-2.5 py-2 text-[12px] text-zinc-200 outline-none placeholder:text-zinc-600 focus:ring-1 focus:ring-[var(--accent)]"
         />
         <button
           onClick={send}
