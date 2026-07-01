@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
-import { Mail, Phone, Github, Linkedin, Check, X, Loader2, ShieldCheck, GitBranch } from 'lucide-react'
+import { Mail, Phone, Github, Linkedin, Check, X, Loader2, ShieldCheck, GitBranch, Download } from 'lucide-react'
 import SectionHeader from './SectionHeader'
 import { Reveal } from '../lib/motion'
 import { PROFILE } from '../lib/data'
@@ -147,6 +147,7 @@ export default function Contact() {
           <ContactCard icon={Phone} label="phone" value={`+91 ${PROFILE.phone}`} href={`tel:+91${PROFILE.phone}`} />
           <ContactCard icon={Github} label="github" value={`@${PROFILE.github}`} href={PROFILE.githubUrl} external />
           <ContactCard icon={Linkedin} label="linkedin" value={PROFILE.linkedin} href={PROFILE.linkedinUrl} external />
+          <ContactCard icon={Download} label="résumé" value="Download PDF" href={PROFILE.resumeUrl} external />
           <div className="corner-frame panel-2 mt-auto flex items-center gap-2 p-3 text-[11px] text-zinc-500">
             <span className="live-dot h-1.5 w-1.5 rounded-full bg-accent" />
             currently open to high-velocity realtime / systems roles

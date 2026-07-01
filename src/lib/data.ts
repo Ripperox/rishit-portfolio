@@ -14,7 +14,27 @@ export const PROFILE = {
   linkedin: 'Rishit Dhote',
   linkedinUrl: 'https://www.linkedin.com/in/rishit-dhote',
   location: 'Remote · India',
+  resumeUrl: '/resume.html',
+  current: 'Apeing Labs',
 }
+
+/* Short professional bio for the landing / About. */
+export const ABOUT = [
+  "I'm a backend & distributed-systems engineer who builds high-concurrency, realtime systems that stay fast under load.",
+  'Currently at Apeing Labs shipping realtime trading infrastructure in Rust and TypeScript — sub-second WebSocket fanout, load-tested pipelines that hold up at 1000+ concurrent users, and the trading UIs on top. Previously built blockchain infrastructure in Rust/Substrate and ran EDA over billions of order records at the National Stock Exchange.',
+  'I care about systems that are fast, correct, and honest about their tradeoffs — and I like proving it with something you can actually click, not just a bullet point.',
+]
+
+/* Credibility highlights for the landing. */
+export const HIGHLIGHTS = [
+  { value: '1000+', label: 'concurrent users / replica' },
+  { value: '89→99%', label: 'delivery @ 1k req/s' },
+  { value: '<1s', label: 'realtime price fanout' },
+  { value: 'billions', label: 'order records analyzed' },
+]
+
+/* What I focus on. */
+export const FOCUS = ['Backend', 'Distributed Systems', 'Realtime', 'Full-stack']
 
 export interface Project {
   name: string

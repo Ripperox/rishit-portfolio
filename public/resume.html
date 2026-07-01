@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @page {
+        size: letter;
+        margin: 0.5in 0.55in;
+      }
+      * { box-sizing: border-box; }
+      body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        color: #14151a;
+        font-size: 10.2px;
+        line-height: 1.4;
+        margin: 0;
+      }
+      .name {
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.4px;
+        margin: 0;
+      }
+      .role {
+        font-size: 11.5px;
+        color: #3a6df0;
+        font-weight: 600;
+        margin: 2px 0 4px;
+      }
+      .contact {
+        font-size: 9.6px;
+        color: #4a4d57;
+      }
+      .contact a { color: #4a4d57; text-decoration: none; }
+      .rule { height: 2px; background: #14151a; margin: 8px 0 10px; }
+      h2 {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 12px 0 6px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid #c9ccd6;
+        color: #14151a;
+      }
+      .row { display: flex; justify-content: space-between; align-items: baseline; }
+      .job-title { font-weight: 700; font-size: 10.8px; }
+      .company { color: #3a6df0; font-weight: 600; }
+      .meta { color: #6b6e78; font-size: 9.2px; white-space: nowrap; }
+      ul { margin: 3px 0 8px; padding-left: 15px; }
+      li { margin: 1.5px 0; }
+      .summary { margin: 0 0 2px; }
+      .proj { margin-bottom: 6px; }
+      .proj .p-name { font-weight: 700; }
+      .stack { color: #6b6e78; font-style: italic; font-size: 9.4px; }
+      .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 24px; }
+      .skills-grid div { margin: 1px 0; }
+      .skills-grid b { display: inline-block; min-width: 74px; }
+      b.k { color: #14151a; }
+      .savebar {
+        position: fixed; top: 14px; right: 14px; display: flex; gap: 8px; z-index: 10;
+      }
+      .savebar button, .savebar a {
+        border: 1px solid #14151a; background: #14151a; color: #fff; font-size: 12px;
+        padding: 8px 14px; cursor: pointer; text-decoration: none; border-radius: 4px;
+        font-family: inherit;
+      }
+      .savebar a { background: #fff; color: #14151a; }
+      @media print { .no-print { display: none !important; } }
+      @media (max-width: 700px) { .savebar { position: static; margin-bottom: 14px; } }
+    </style>
+  </head>
+  <body>
+    <div class="savebar no-print">
+      <button onclick="window.print()">↓ Save as PDF (⌘P)</button>
+      <a href="/">← Portfolio</a>
+    </div>
+    <div class="row">
+      <div>
+        <h1 class="name">Rishit Dhote</h1>
+        <div class="role">Backend &amp; Distributed Systems Engineer</div>
+      </div>
+    </div>
+    <div class="contact">
+      rishitrdhote@gmail.com &nbsp;·&nbsp; +91 7021796024 &nbsp;·&nbsp; Remote / India &nbsp;·&nbsp;
+      github.com/Ripperox &nbsp;·&nbsp; linkedin.com/in/rishit-dhote &nbsp;·&nbsp; rishitdhote.vercel.app
+    </div>
+    <div class="rule"></div>
+
+    <p class="summary">
+      Backend &amp; distributed-systems engineer who builds high-concurrency, realtime systems that stay fast under
+      load. Shipped a Rust WebSocket platform sustaining 1000+ concurrent users per replica and drove init-payload
+      delivery from 89% to 99% at 1k concurrent users through K6-guided load testing and refactoring. Comfortable
+      across Rust, TypeScript, and Python — from streaming data pipelines to the UIs on top of them.
+    </p>
+
+    <h2>Experience</h2>
+
+    <div class="row">
+      <div><span class="job-title">Software Developer</span>, <span class="company">Apeing Labs</span></div>
+      <div class="meta">Nov 2025 – Present · Remote</div>
+    </div>
+    <ul>
+      <li>Shipped a cross-platform prediction-market module integrating Polymarket &amp; Kalshi via dFlow APIs and custom middleware — aggregating liquidity and syncing multi-chain odds in real time.</li>
+      <li>Ran Grafana K6 load/stress tests simulating concurrent users to surface throughput bottlenecks; results drove a refactor raising init-payload delivery from <b class="k">89% → 99% at 1,000 concurrent users/replica</b>.</li>
+      <li>Owned the test suite — unit, integration, and Playwright E2E across critical flows (room join, trading terminal, live chat/polls) — catching regressions before release.</li>
+    </ul>
+
+    <div class="row">
+      <div><span class="job-title">Blockchain Developer</span>, <span class="company">Caerulean Bytechains</span></div>
+      <div class="meta">Apr 2025 – Nov 2025 · Hyderabad</div>
+    </div>
+    <ul>
+      <li>Built core backend for a SaaS platform letting Web2 developers compose blockchains through a drag-and-drop, plug-and-play feature builder — abstracting Substrate/Polkadot complexity into reusable modules.</li>
+      <li>Designed and implemented custom consensus mechanisms in Rust/Substrate for scalable, interoperable chain infrastructure.</li>
+    </ul>
+
+    <div class="row">
+      <div><span class="job-title">Data Engineer Intern</span>, <span class="company">National Stock Exchange</span></div>
+      <div class="meta">Jan 2025 – Mar 2025 · Mumbai</div>
+    </div>
+    <ul>
+      <li>Migrated large-scale order data from Greenplum to Cloudera and ran EDA on billions of order records to surface trading trends.</li>
+    </ul>
+
+    <div class="row">
+      <div><span class="job-title">AI Engineer Intern — LLMs</span>, <span class="company">Smartavya Analytica</span></div>
+      <div class="meta">Jun 2024 – Jul 2024 · Pune</div>
+    </div>
+    <ul>
+      <li>Developed a locally-deployed, open-source AI solution for the National Stock Exchange (NSE) to ensure data privacy while enabling natural-language database queries.</li>
+    </ul>
+
+    <h2>Selected Projects</h2>
+    <div class="proj">
+      <span class="p-name">Alpharooms</span> — realtime SocialFi platform. Architected a high-concurrency Rust/Tokio
+      WebSocket service with shared Redis pub/sub fanout and PgBouncer pooling, sustaining <b class="k">1000+
+      concurrent users/replica</b>; 30+ event types over one socket; SQLx + Postgres persistence; Yellowstone gRPC
+      ingest from Solana with Rust parsers and sub-second price fanout.
+      <div class="stack">Rust · Tokio · WebSockets · Redis · PostgreSQL · gRPC · Next.js</div>
+    </div>
+    <div class="proj">
+      <span class="p-name">LLM Gateway</span> — transparent Anthropic-compatible streaming proxy (Rust/Axum) that
+      relays SSE byte-for-byte while instrumenting every token (TTFT, latency, throughput) live to a React dashboard
+      over WebSockets. <span class="stack">github.com/Ripperox/llm-gateway</span>
+    </div>
+    <div class="proj">
+      <span class="p-name">FlavourScout</span> — provably-optimal cart &amp; coupon optimizer using a multiple-choice
+      knapsack DP priced against the real checkout bill; 500-test suite; live demo. <span class="stack">Python · FastAPI</span>
+    </div>
+    <div class="proj">
+      <span class="p-name">Solana Transaction Monitor</span> — realtime on-chain dashboard; WebSocket → SSE fanout,
+      virtualized 1,000-transaction feed, automatic reconnect. <span class="stack">Next.js · TypeScript</span>
+    </div>
+
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div><b class="k">Languages</b> Rust, TypeScript, Python, Solidity, SQL</div>
+      <div><b class="k">Backend</b> Tokio, WebSockets, gRPC, Redis, PostgreSQL, AWS</div>
+      <div><b class="k">Frontend</b> React, Next.js</div>
+      <div><b class="k">Testing / Ops</b> K6, Playwright, Grafana</div>
+    </div>
+
+    <h2>Education</h2>
+    <div class="row">
+      <div><span class="job-title">B.Tech, Computer Science (Blockchain Specialization)</span>, <span class="company">VIT Vellore</span></div>
+      <div class="meta">2021 – 2025 · GPA 8.11 / 10</div>
+    </div>
+  </body>
+</html>

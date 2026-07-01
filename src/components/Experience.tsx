@@ -67,15 +67,19 @@ export default function Experience() {
           </div>
         </div>
 
-        {/* education footer */}
-        <div className="mt-7 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-[var(--line)] pt-5 text-[13px]">
-          <GraduationCap className="h-4 w-4 text-accent" />
-          <span className="font-semibold text-zinc-200">B.Tech — Computer Science (Blockchain)</span>
-          <span className="text-accent">@ VIT Vellore</span>
-          <span className="ml-auto flex items-center gap-3 text-[11px] tabular-nums text-zinc-500">
-            <span>GPA 8.11 / 10</span>
-            <span>2021 — 2025</span>
-          </span>
+        {/* education */}
+        <div className="mt-7 border-t border-[var(--line)] pt-5">
+          <div className="mb-2 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+            <GraduationCap className="h-3.5 w-3.5 text-accent" /> education
+          </div>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px]">
+            <span className="font-semibold text-zinc-200">B.Tech — Computer Science (Blockchain Specialization)</span>
+            <span className="text-accent">@ VIT Vellore</span>
+            <span className="ml-auto flex items-center gap-3 text-[11px] tabular-nums text-zinc-500">
+              <span>GPA 8.11 / 10</span>
+              <span>2021 — 2025</span>
+            </span>
+          </div>
         </div>
       </div>
     </Reveal>

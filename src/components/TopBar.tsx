@@ -12,6 +12,7 @@ import {
   Command,
   Boxes,
   Activity,
+  Download,
 } from 'lucide-react'
 import { useView, type View } from '../lib/view'
 import { useMode } from '../lib/mode'
@@ -74,6 +75,14 @@ export default function TopBar() {
 
         {/* right controls */}
         <div className="ml-auto flex shrink-0 items-center gap-2">
+          <a
+            href={PROFILE.resumeUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex h-8 items-center gap-1.5 border border-accent bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] px-2.5 text-[12px] font-medium text-accent transition-all hover:glow-accent"
+          >
+            <Download className="h-3.5 w-3.5" /> Résumé
+          </a>
           <span className="hidden items-center gap-1.5 border border-[var(--line)] bg-[var(--panel-2)] px-2 py-1 text-[11px] text-zinc-400 xl:flex">
             <Activity className="h-3.5 w-3.5 text-accent" />
             <span className="tabular-nums text-accent">
