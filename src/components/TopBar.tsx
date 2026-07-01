@@ -20,9 +20,9 @@ import Ticker from './Ticker'
 
 export const NAV: { id: View; label: string; short: string; icon: any; hint: string }[] = [
   { id: 'home', label: 'Home', short: 'Home', icon: TerminalSquare, hint: 'command center' },
+  { id: 'work', label: 'Stack & Work', short: 'Work', icon: FolderGit2, hint: 'skills · projects' },
   { id: 'alpharooms', label: 'Alpharooms', short: 'Alpharooms', icon: Radio, hint: 'live demo' },
   { id: 'lab', label: 'Throughput Lab', short: 'Lab', icon: Gauge, hint: 'node vs rust' },
-  { id: 'work', label: 'Stack & Work', short: 'Work', icon: FolderGit2, hint: 'skills · projects' },
   { id: 'live', label: 'Live Signal', short: 'Live', icon: Globe2, hint: 'globe · guestbook' },
   { id: 'contact', label: 'Contact', short: 'Contact', icon: Mail, hint: 'open a channel' },
 ]

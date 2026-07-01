@@ -61,9 +61,9 @@ export default function CommandMenu() {
 
         <Command.Group heading="Go to view">
           <Item icon={TerminalSquare} label="Home — command center" kbd="01" onSelect={() => run(() => setView('home'))} />
-          <Item icon={Radio} label="Alpharooms — live demo" kbd="02" onSelect={() => run(() => setView('alpharooms'))} />
-          <Item icon={Gauge} label="Throughput Lab — Node vs Rust" kbd="03" onSelect={() => run(() => setView('lab'))} />
-          <Item icon={Boxes} label="Stack & Work — skills, projects, career" kbd="04" onSelect={() => run(() => setView('work'))} />
+          <Item icon={Boxes} label="Stack & Work — skills, projects, career" kbd="02" onSelect={() => run(() => setView('work'))} />
+          <Item icon={Radio} label="Alpharooms — live demo" kbd="03" onSelect={() => run(() => setView('alpharooms'))} />
+          <Item icon={Gauge} label="Throughput Lab — Node vs Rust" kbd="04" onSelect={() => run(() => setView('lab'))} />
           <Item icon={Globe2} label="Live Signal — globe, guestbook, GitHub" kbd="05" onSelect={() => run(() => setView('live'))} />
           <Item icon={Mail} label="Contact" kbd="06" onSelect={() => run(() => setView('contact'))} />
         </Command.Group>
