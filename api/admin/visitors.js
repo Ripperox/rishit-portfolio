@@ -52,9 +52,12 @@ export default async function handler(req, res) {
     .filter(Boolean)
     .sort((a, b) => (b.lastSeen || 0) - (a.lastSeen || 0))
 
+  const hits = (await redis.lrange('visits:hits', 0, 99)).map(parseJSON).filter(Boolean)
+  const totalHits = Number(await redis.get('visits:total')) || people.length
+
   if (req.query?.format === 'json') {
     res.setHeader('Cache-Control', 'no-store')
-    return res.status(200).json({ unique: people.length, people })
+    return res.status(200).json({ unique: people.length, people, hits })
   }
 
   const totalVisits = people.reduce((s, p) => s + (p.visits || 0), 0)
@@ -78,6 +81,19 @@ export default async function handler(req, res) {
       <td>${p.org ? esc(p.org) : '<span class="muted">—</span>'}</td>
       <td>${esc(p.device)} · ${esc(p.browser)} / ${esc(p.os)}</td>
       <td>${esc(host(p.ref))}</td>
+    </tr>`,
+    )
+    .join('')
+
+  const hitRows = hits
+    .map(
+      (hh) => `<tr>
+      <td>${ago(hh.t)} ago</td>
+      <td>${hh.isNew ? '<span class="accent">NEW</span>' : '<span class="muted">·</span>'}</td>
+      <td>${flag(hh.country)} ${esc(hh.city || '?')} <span class="muted">${esc(hh.country || '')}</span></td>
+      <td>${hh.org ? esc(hh.org) : '<span class="muted">—</span>'}</td>
+      <td>${esc(hh.device)} · ${esc(hh.browser)}</td>
+      <td>${esc(host(hh.ref))}</td>
     </tr>`,
     )
     .join('')
@@ -112,18 +128,26 @@ export default async function handler(req, res) {
     <div class="sub">deduped by person · org resolved from IP at request time, IPs never stored · auto-refresh 30s</div>
     <div class="cards">
       ${card('unique visitors', people.length)}
-      ${card('total visits', totalVisits)}
+      ${card('total hits', totalHits)}
       ${card('countries', countries.length)}
       ${card('with company/org', people.filter((p) => p.org).length)}
     </div>
     <div class="panel"><h3>top countries</h3>${chips(countries.map(([k, v]) => [flag(k) + ' ' + k, v]))}</div>
     <div class="panel"><h3>top orgs / ISPs</h3>${chips(orgs)}</div>
     <div class="panel"><h3>referrers</h3>${chips(refs)}</div>
+
+    <h3 style="margin:20px 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#71717a">● recent hits <span class="muted" style="text-transform:none;letter-spacing:0">— live feed, every visit</span></h3>
+    <div class="wrap" style="margin-bottom:16px"><table>
+      <thead><tr><th>when</th><th></th><th>location</th><th>org / company</th><th>device</th><th>referrer</th></tr></thead>
+      <tbody>${hitRows || '<tr><td colspan="6" class="muted" style="padding:20px;text-align:center">no hits yet</td></tr>'}</tbody>
+    </table></div>
+
+    <h3 style="margin:20px 0 8px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#71717a">unique visitors</h3>
     <div class="wrap"><table>
-      <thead><tr><th>#</th><th>last seen</th><th>visits</th><th>location</th><th>org / company</th><th>device</th><th>referrer</th></tr></thead>
+      <thead><tr><th>#</th><th>last seen</th><th>sessions</th><th>location</th><th>org / company</th><th>device</th><th>referrer</th></tr></thead>
       <tbody>${rows || '<tr><td colspan="7" class="muted" style="padding:24px;text-align:center">no visitors logged yet</td></tr>'}</tbody>
     </table></div>
-    <script>setTimeout(()=>location.reload(),30000)</script>
+    <script>setTimeout(()=>location.reload(),20000)</script>
   </body></html>`
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
